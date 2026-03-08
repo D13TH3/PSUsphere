@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Profile</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">User Profile</div>
+                        <div class="card-category">Your account information</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <div class="profile-image-container mb-4">
+                                    <img src="{% static 'img/Ako.jpg' %}" alt="Profile" class="rounded-circle img-fluid" style="max-width: 250px; width: 100%; height: auto; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-muted" style="width: 180px;">Username</td>
+                                            <td><strong>{{ user.username }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Email</td>
+                                            <td><strong>{{ user.email|default:"Not set" }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">First Name</td>
+                                            <td><strong>{{ user.first_name|default:"—" }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Last Name</td>
+                                            <td><strong>{{ user.last_name|default:"—" }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Member since</td>
+                                            <td><strong>{{ user.date_joined|date:"F d, Y" }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Last login</td>
+                                            <td><strong>{% if user.last_login %}{{ user.last_login|date:"F d, Y H:i" }}{% else %}—{% endif %}</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

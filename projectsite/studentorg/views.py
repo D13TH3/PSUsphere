@@ -12,6 +12,7 @@ from django.utils.dateparse import parse_date
 from django.shortcuts import render
 from django.db.models import Count, F
 from django.views.generic.base import TemplateView
+from django.utils import timezone
 
 @method_decorator(login_required, name="dispatch")
 
@@ -62,6 +63,17 @@ class OrganizationMemberList(ListView):
                        Q(student__lastname__icontains=query) |
                        Q(student__firstname__icontains=query) |
                        Q(student__middlename__icontains=query))
+
+        # Sorting: sort=student|date, order=asc|desc
+        sort_by = self.request.GET.get("sort", "student")
+        order = self.request.GET.get("order", "asc")
+        prefix = "-" if order == "desc" else ""
+
+        if sort_by == "date":
+            qs = qs.order_by(f"{prefix}date_joined")
+        else:
+            # Default: sort by student name (lastname, firstname)
+            qs = qs.order_by(f"{prefix}student__lastname", f"{prefix}student__firstname")
 
         return qs
 
@@ -260,6 +272,11 @@ def index(request):
     student_counts = [Student.objects.filter(program__college=college).count() for college in all_colleges]
 
 
+    org_count = Organization.objects.count()
+    program_count = Program.objects.count()
+    student_count = Student.objects.count()
+    member_count = OrgMember.objects.count()
+
     context = {
         'labels': labels, 'data': data,
         'colleges': colleges, 'num_programs': num_programs,
@@ -267,9 +284,16 @@ def index(request):
         'college_names': college_names, 'num_organizations': num_organizations,
         'programx': programx, 'less_students': less_students,
         'all_college_names': all_college_names, 'student_counts': student_counts,
+        'org_count': org_count, 'program_count': program_count,
+        'student_count': student_count, 'member_count': member_count,
     }
 
     return render(request, 'index.html', context)
 
 class HomePageView(TemplateView):
     template_name = 'dashboard.html'
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'profile.html', {'user': request.user})

@@ -14,9 +14,11 @@
                     <br />
                     <div class="col-md-12 row">
                         <div class="col-md-6">
-                            <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'organization-mem-list' %}">
+                            <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'organization-mem-list' %}" method="get">
                                 <div class="input-group">
-                                    <input type="text" placeholder="search ..." class="form-control" name="q"/>
+                                    <input type="text" placeholder="search ..." class="form-control" name="q" value="{{ request.GET.q }}"/>
+                                    {% if request.GET.sort %}<input type="hidden" name="sort" value="{{ request.GET.sort }}"/>{% endif %}
+                                    {% if request.GET.order %}<input type="hidden" name="order" value="{{ request.GET.order }}"/>{% endif %}
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-search search-icon"></i>
@@ -35,9 +37,17 @@
                         <table class="table table-striped mt-3">
                             <thead>
                                 <tr>
-                                    <th scope="col">Student</th>
+                                    <th scope="col">
+                                        <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}sort=student&order={% if request.GET.sort == 'student' and request.GET.order == 'desc' %}asc{% else %}desc{% endif %}" class="text-dark">
+                                            Student {% if request.GET.sort == 'student' %}<i class="la la-caret-{% if request.GET.order == 'desc' %}down{% else %}up{% endif %}"></i>{% endif %}
+                                        </a>
+                                    </th>
                                     <th scope="col">Organization</th>
-                                    <th scope="col">Date joined</th>
+                                    <th scope="col">
+                                        <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}sort=date&order={% if request.GET.sort == 'date' and request.GET.order == 'desc' %}asc{% else %}desc{% endif %}" class="text-dark">
+                                            Date joined {% if request.GET.sort == 'date' %}<i class="la la-caret-{% if request.GET.order == 'desc' %}down{% else %}up{% endif %}"></i>{% endif %}
+                                        </a>
+                                    </th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
