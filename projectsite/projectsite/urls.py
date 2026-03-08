@@ -19,11 +19,13 @@ from django.urls import path, re_path
 from studentorg.views import HomePageView, OrganizationList, OrganizationCreateView, OrganizationUpdateView, OrganizationDeleteView, OrganizationMemberList, OrganizationMemberCreateView, OrganizationMemberUpdateView, OrganizationMemberDeleteView, StudentList, StudentCreateView, StudentUpdateView, StudentDeleteView, CollegeList, CollegeCreateView, CollegeUpdateView, CollegeDeleteView, ProgramList, ProgramCreateView, ProgramUpdateView, ProgramDeleteView
 from studentorg import views
 from django.contrib.auth import views as auth_views
+from django.urls import path, include
 
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")), # allauth routes
     path('', views.index, name='home'),
     path('dashboard/', HomePageView.as_view(), name='dashboard'),
     path('organization_list', OrganizationList.as_view(), name='organization-list'), 
@@ -46,8 +48,8 @@ urlpatterns = [
     path('program_list/add', ProgramCreateView.as_view(), name='program-add'), 
     path('program_list/<pk>', ProgramUpdateView.as_view(), name='program-update'),
     path('program_list/<pk>/delete', ProgramDeleteView.as_view(), name='program-delete'),
-    re_path(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    #re_path(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    #re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.profile_view, name='profile'),
     path('index/', views.index, name='index'),
 ]

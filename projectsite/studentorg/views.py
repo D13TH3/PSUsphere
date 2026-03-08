@@ -29,6 +29,10 @@ class OrganizationList(ListView):
             qs = qs.filter(Q(name__icontains=query) | 
                            Q(description__icontains=query) |
                            Q(college__college_name__icontains=query))
+        sort_by = self.request.GET.get("sort", "name")
+        order = self.request.GET.get("order", "asc")
+        prefix = "-" if order == "desc" else ""
+        qs = qs.order_by(f"{prefix}college__college_name" if sort_by == "college" else f"{prefix}name")
         return qs
 
 class OrganizationCreateView(CreateView):
@@ -112,7 +116,15 @@ class StudentList(ListView):
                        Q(firstname__icontains=query) |
                        Q(middlename__icontains=query) |
                        Q(program__prog_name__icontains=query))
-
+        sort_by = self.request.GET.get("sort", "lastname")
+        order = self.request.GET.get("order", "asc")
+        prefix = "-" if order == "desc" else ""
+        if sort_by == "student_id":
+            qs = qs.order_by(f"{prefix}student_id")
+        elif sort_by == "program":
+            qs = qs.order_by(f"{prefix}program__prog_name")
+        else:
+            qs = qs.order_by(f"{prefix}lastname", f"{prefix}firstname")
         return qs
 
 class StudentCreateView(CreateView):
@@ -144,6 +156,9 @@ class CollegeList(ListView):
         if self.request.GET.get("q") is not None:
             query = self.request.GET.get("q")
             qs = qs.filter(Q(college_name__icontains=query))
+        order = self.request.GET.get("order", "asc")
+        prefix = "-" if order == "desc" else ""
+        qs = qs.order_by(f"{prefix}college_name")
         return qs
 
 class CollegeCreateView(CreateView):
@@ -175,7 +190,14 @@ class ProgramList(ListView):
             query = self.request.GET.get("q")
             qs = qs.filter(Q(prog_name__icontains=query) |
                            Q(college__college_name__icontains=query))
-                           
+
+        sort_by = self.request.GET.get("sort", "prog_name")
+        order = self.request.GET.get("order", "asc")
+        prefix = "-" if order == "desc" else ""
+        if sort_by == "college":
+            qs = qs.order_by(f"{prefix}college__college_name")
+        else:
+            qs = qs.order_by(f"{prefix}prog_name")
         return qs
 
 class ProgramCreateView(CreateView):

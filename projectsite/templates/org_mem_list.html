@@ -16,7 +16,7 @@
                         <div class="col-md-6">
                             <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'organization-mem-list' %}" method="get">
                                 <div class="input-group">
-                                    <input type="text" placeholder="search ..." class="form-control" name="q" value="{{ request.GET.q }}"/>
+                                    <input type="text" placeholder="Search..." class="form-control" name="q" value="{{ request.GET.q }}"/>
                                     {% if request.GET.sort %}<input type="hidden" name="sort" value="{{ request.GET.sort }}"/>{% endif %}
                                     {% if request.GET.order %}<input type="hidden" name="order" value="{{ request.GET.order }}"/>{% endif %}
                                     <div class="input-group-append">
@@ -33,21 +33,30 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-3 mb-2">
+                        <div class="col-md-12">
+                            <form action="{% url 'organization-mem-list' %}" method="get" class="form-inline">
+                                {% if request.GET.q %}<input type="hidden" name="q" value="{{ request.GET.q }}"/>{% endif %}
+                                <label class="mr-2">Sort by</label>
+                                <select name="sort" class="form-control form-control-sm mr-2" style="min-width: 180px;">
+                                    <option value="student" {% if request.GET.sort == 'student' or not request.GET.sort %}selected{% endif %}>Student Name</option>
+                                    <option value="date" {% if request.GET.sort == 'date' %}selected{% endif %}>Date Joined</option>
+                                </select>
+                                <select name="order" class="form-control form-control-sm mr-2" style="min-width: 120px;">
+                                    <option value="asc" {% if request.GET.order == 'asc' or not request.GET.order %}selected{% endif %}>Ascending</option>
+                                    <option value="desc" {% if request.GET.order == 'desc' %}selected{% endif %}>Descending</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <table class="table table-striped mt-3">
                             <thead>
                                 <tr>
-                                    <th scope="col">
-                                        <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}sort=student&order={% if request.GET.sort == 'student' and request.GET.order == 'desc' %}asc{% else %}desc{% endif %}" class="text-dark">
-                                            Student {% if request.GET.sort == 'student' %}<i class="la la-caret-{% if request.GET.order == 'desc' %}down{% else %}up{% endif %}"></i>{% endif %}
-                                        </a>
-                                    </th>
+                                    <th scope="col">Student</th>
                                     <th scope="col">Organization</th>
-                                    <th scope="col">
-                                        <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}sort=date&order={% if request.GET.sort == 'date' and request.GET.order == 'desc' %}asc{% else %}desc{% endif %}" class="text-dark">
-                                            Date joined {% if request.GET.sort == 'date' %}<i class="la la-caret-{% if request.GET.order == 'desc' %}down{% else %}up{% endif %}"></i>{% endif %}
-                                        </a>
-                                    </th>
+                                    <th scope="col">Date joined</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>

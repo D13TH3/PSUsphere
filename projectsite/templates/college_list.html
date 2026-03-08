@@ -14,9 +14,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'college-list' %}">
+                                <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'college-list' %}" method="get">
                                     <div class="input-group">
-                                        <input type="text" placeholder="search ..." class="form-control" name="q" value="{{ request.GET.q }}"/>
+                                        <input type="text" placeholder="Search..." class="form-control" name="q" value="{{ request.GET.q }}"/>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-search search-icon"></i>
@@ -29,6 +29,22 @@
                                 <div class="pull-right">
                                     <a href="{% url 'college-add' %}" class="btn btn-success btn-rounded">Add College</a>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-2">
+                            <div class="col-md-12">
+                                <form action="{% url 'college-list' %}" method="get" class="form-inline">
+                                    {% if request.GET.q %}<input type="hidden" name="q" value="{{ request.GET.q }}"/>{% endif %}
+                                    <label class="mr-2">Sort by</label>
+                                    <select name="sort" class="form-control form-control-sm mr-2" style="min-width: 180px;">
+                                        <option value="college_name" {% if request.GET.sort == 'college_name' or not request.GET.sort %}selected{% endif %}>College Name</option>
+                                    </select>
+                                    <select name="order" class="form-control form-control-sm mr-2" style="min-width: 120px;">
+                                        <option value="asc" {% if request.GET.order == 'asc' or not request.GET.order %}selected{% endif %}>Ascending</option>
+                                        <option value="desc" {% if request.GET.order == 'desc' %}selected{% endif %}>Descending</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+                                </form>
                             </div>
                         </div>
                         <table class="table table-striped mt-3">
