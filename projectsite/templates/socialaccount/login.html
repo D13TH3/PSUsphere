@@ -38,7 +38,11 @@
 <div class="container d-flex justify-content-center">
     <div class="auth-card">
         <div class="mb-4">
-            <i class="fab fa-google fa-3x text-primary"></i>
+            {% if provider.id == 'google' %}
+              <i class="fab fa-google fa-3x text-primary"></i>
+            {% elif provider.id == 'github' %}
+              <i class="fab fa-github fa-3x text-dark"></i>
+            {% endif %}
         </div>
         <h3 class="mb-4">Confirm Sign In</h3>
         <p class="mb-4 text-muted">
