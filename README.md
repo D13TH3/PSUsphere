@@ -14,8 +14,36 @@ This project streamlines the administration of student-led organizations. It fea
     - Filterable college and organization lists.
     - Custom "Program" display for organization members.
 
-#### Authors
- **Diether Abunto** -Dev
- 
-  **Ace Barona** -Dev
+
+## About the Authors
+
+<img src="https://github.com/D13TH3.png" width="150" style="border-radius:50%;" />
+
+**Name:** **Diether L. Abunto**  
+**Email:** **202280198@psu.palawan.edu.ph**
+
+### Connect with me
+
+<a href="https://web.facebook.com/diether.abunto.3">
+  <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Facebook.svg" width="40">
+</a>
+
+<a href="https://github.com/D13TH3">
+  <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Github.svg" width="40">
+</a>
+
+<img src="https://github.com/acebarona.png" width="150" style="border-radius:50%;" />
+
+**Name:** **A-Cheshire Barona**  
+**Email:** **202280224@psu.palawan.edu.ph**
+
+### Connect with me
+
+<a href="https://www.facebook.com/share/17MMQxVqrN">
+  <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Facebook.svg" width="40">
+</a>
+
+<a href="https://github.com/acebarona">
+  <img src="https://raw.githubusercontent.com/gauravghongde/social-icons/master/SVG/Color/Github.svg" width="40">
+</a>
 
