@@ -25,9 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lej&u)er*xmt!q9a3uyz7le9v$7j*#=!dk#f-7rbo@_b82vfn@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', 'True') == '1'
 
-ALLOWED_HOSTS = ['diether.pythonanywhere.com', '127.0.0.1', 'localhost']
+
+ALLOWED_HOSTS = ['diether.pythonanywhere.com', '127.0.0.1', 'localhost', '0.0.0.0']
 
 
 # Application definition
@@ -47,6 +49,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'rest_framework',
+    'api',
+    'rest_framework.authtoken',
     'studentorg',
     'widget_tweaks',
 ]
@@ -142,6 +147,16 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = (
  BASE_DIR / 'static',
 )
+
+
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES': [
+      'rest_framework.authentication.TokenAuthentication',
+  ],
+  'DEFAULT_PERMISSION_CLASSES': [
+      'rest_framework.permissions.IsAuthenticated',
+  ],
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

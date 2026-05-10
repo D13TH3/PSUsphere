@@ -7,6 +7,7 @@ Django==5.2.11
 django-allauth==65.14.3
 django-allauth-ui==1.8.1
 django-widget-tweaks==1.5.1
+djangorestframework==3.17.1
 Faker==40.5.1
 idna==3.11
 pycparser==3.0
@@ -19,4 +20,3 @@ typeguard==2.13.3
 typing_extensions==4.15.0
 tzdata==2025.3
 urllib3==2.6.3
-whitenoise==6.4.0
