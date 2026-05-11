@@ -20,7 +20,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./PSUsphere/projectsite
-          file: ./PSUsphere/projectsite/Dockerfile
+          context: ./projectsite
+          file: ./projectsite/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/projectsite:latest
+
