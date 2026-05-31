@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-lej&u)er*xmt!q9a3uyz7le9v$7j*#=!dk#f-7rbo@_b82vfn@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == '1'
+#  UPDATE LINE 29 TO THIS:
+DEBUG = True
+
 
 
 ALLOWED_HOSTS = ['diether.pythonanywhere.com', '127.0.0.1', 'localhost', '0.0.0.0']
@@ -57,7 +59,7 @@ INSTALLED_APPS = [
 ]
 
 if "pythonanywhere" in socket.gethostname():
- SITE_ID = 3 # production site (psusphere.pythonanywhere.com)
+ SITE_ID = 3 # production site (Ecotrack.pythonanywhere.com)
 else:
  SITE_ID = 2 # local site (127.0.0.1:8000)
 AUTHENTICATION_BACKENDS = [
